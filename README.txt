@@ -4,5 +4,7 @@ The front-end of the app is written using html, css and vanilla js, the implemen
 To run the app:
 1: Run Refresh_certs.py
 2: install the CA-Cert.cer onto your machine
-3: run GameServer.py
-4: enjoy!
+3: change line 22 to be the email address you would like to use
+4: change line 23 to an app password for the email address
+5: run GameServer.py
+6: enjoy!
