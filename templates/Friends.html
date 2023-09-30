@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+  <title>Friends</title>
+  <style>
+    /* Global styles */
+    html{
+      background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+    body {
+      align-items: center;
+      justify-content: center;
+      font-size: medium;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      font-family: Lexend;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    thead{
+      border-bottom: 1px solid #ddd;
+    }
+    /* Custom styles */
+    .header {
+      color: #ffffff;
+      text-align: center;
+      border: #000000;
+      font-size: x-large;
+      font-family: Lexend;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: Lexend;
+    }
+
+    table {
+      position: relative;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Lexend;
+      background-color: black; /* Add this line */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 10px 15px; /* shorter vertical padding */
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      font-family: Lexend;
+    }
+
+    th {
+      background-color: transparent;
+      font-family: Lexend;
+      color: #ffffff;
+    }
+
+    td {
+      color: #ffffff;
+      font-family: Lexend;
+    }
+
+    .remove-button {
+      background-color: #ff0000;
+      color: #ffffff;
+      font-family: Lexend;
+      border: none;
+      padding: 5px; /* smaller button padding */
+      border-radius: 5px;
+      cursor: pointer;
+      float: right; /* align the button to the right */
+    }
+    .accept-button {
+      background-color: #44ff00;
+      color: #ffffff;
+      font-family: Lexend;
+      border: none;
+      padding: 5px; /* smaller button padding */
+      border-radius: 5px;
+      cursor: pointer;
+      float: right; /* align the button to the right */
+    }
+    .Addfriend {
+      display: none;
+      font-family: Lexend;
+    }
+    #header-button {
+        background-color: #eee;
+        position: absolute;
+        font-family: Lexend;
+        left: 15px;
+        top: 15px;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+    }
+    .shrink{
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+    .start{
+      transform: scale(0);
+      transition: all 0s ease;
+    }
+    .item{
+      transform: scale(1);
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body id="body">
+  <div class="header">
+    <h1>Friends</h1>
+    <button id="header-button" onclick ="Goback()">Back</button>
+  </div>
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Friends</th>
+        </tr>
+      </thead>
+      <tbody id="data-table-body">
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">
+            <label for="friend-name">Enter Friend's Name:</label>
+            <input type="text" id="friend-name" name="friend-name">
+            <button type="submit" onclick = searchname()>Submit</button>
+          </th>
+        </tr>
+        <td>
+          <p id="Targetname"></p>
+          <button id = "Addfriend" class = "Addfriend" type="submit" onclick = Sendfriendrequest() >Add Friend</button>
+        </td>
+      </thead>
+      <tbody>
+        <tr>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Friend Requests</th>
+        </tr>
+      </thead>
+      <tbody id="request-table-body">
+      </tbody>
+    </table>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const Token = "{{ token }}"
+    const b = document.getElementById('body');
+    b.classList.add('start');
+    setTimeout(function () {
+      b.classList.remove('start')
+      b.classList.add('item');
+    }, 100);
+  </script>
+  <script type="text/javascript" src="{{url_for('static', filename='Friends.js')}}"></script>
+</body>
+</html>

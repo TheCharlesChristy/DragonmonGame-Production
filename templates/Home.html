@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DragonMon</title>
+  <style>
+    html{
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #ffffff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      border: 0px;
+      box-sizing: border-box;
+      font-family: Lexend;
+      padding: 0px;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+    h1 {
+      font-size: 4rem;
+      max-width: 90%;
+      font-family: Lexend;
+      color: #ffffff;
+      text-align: center;
+      transition: all 0.5s ease;
+    }
+    button {
+      padding: 1rem 2rem;
+      background-color: #d8d8d8;
+      color: #000;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      margin-top: 7rem;
+      cursor: pointer;
+      font-family: Lexend;
+      transition: all 0.5s ease;
+    }
+
+    .item:hover {
+      transform: scale(1.05) perspective(1px)
+    }
+    .shrink{
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+    .start{
+      transform: scale(0);
+      transition: all 0s ease;
+    }
+    .item{
+      transform: scale(1);
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>DragonMon</h1>
+  <button id="CreateAccount">Create Account</button>
+  <button id="Login">Login</button>
+</body>
+<script type="text/javascript">
+  const elements = document.querySelectorAll('body *');
+  elements.forEach(element => {
+    element.classList.add('start')
+  });
+  setTimeout(() => {
+    elements.forEach(element => {
+      element.classList.remove('start')
+      element.classList.add('item');
+    });
+  }, 100);
+
+  document.getElementById("CreateAccount").onclick = function () {
+    elements.forEach(element => {
+      element.classList.remove('item')
+      element.classList.add('shrink');
+    });
+    setTimeout(() => {
+      location.href = "/Createaccount"; // Redirect after a delay
+    }, 500);
+  };
+
+  document.getElementById("Login").onclick = function () {
+    elements.forEach(element => {
+      element.classList.remove('item')
+      element.classList.add('shrink');
+    });
+    setTimeout(() => {
+      location.href = "/Login";
+    }, 500);
+  };
+
+    // Call checkSize on load and resize
+    //.addEventListener('load', checkSize);
+    //window.addEventListener('resize', checkSize);
+</script>
+</html>

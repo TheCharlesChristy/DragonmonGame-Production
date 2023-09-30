@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DragonMon</title>
+  <style>
+    html{
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: Lexend;
+      color: #ffffff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      border: 20px solid #000;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 40px;
+      font-family: Lexend;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      font-family: Lexend;
+    }
+    label {
+      font-size: 20px;
+      color: #ffffff;
+      margin-top: 20px;
+      font-family: Lexend;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+      font-family: Lexend;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="submit"] {
+      display: hidden;
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #000;
+      border: none;
+      font-family: Lexend;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+    input[type="submit"]:hover {
+      transform: scale(1.05) perspective(1px)
+    }
+    p {
+      color: #ff0000;
+      margin-top: 20px;
+      font-size: 24px;
+      text-align: center;
+      font-family: Lexend;
+    }
+    #home {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: Lexend;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    /* Hover effect for the Home button */
+    .home-button:hover {
+      transform: scale(1.05) perspective(1px)
+    }
+    .shrink{
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+    .start{
+      transform: scale(0);
+      transition: all 0s ease;
+    }
+    .item{
+      transform: scale(1);
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <button id="home" onclick = "goHome()">Home</button>
+  <h1>DragonMon</h1>
+  <form action="{{url_for('Verify')}}" method="post" id="Form">
+    <label for="username">Choose your Username:</label>
+    <input type="text" id="username" name="username" placeholder="Gaming Name">
+    <label for="email">Enter your email address:</label>
+    <input type="email" id="email" name="email" placeholder="Email">
+    <label for="password">Create a strong password:</label>
+    <input type="password" id="password" name="password" placeholder="Password" minlength="8">
+    <input type="hidden" id="Token" name="Token" value="{{Token}}">
+    <input type="hidden" id="reference" name="reference" value="CreateAccount">
+    <input type="submit" value="CreateAccount">
+  </form>
+  {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+</body>
+<script src="https://fonts.googleapis.com/css?family=Press+Start+2P"></script>
+<script>
+  document.getElementById("home").classList.add('home-button');
+  const elements = document.querySelectorAll('body *');
+  elements.forEach(element => {
+    element.classList.add('start')
+  });
+  setTimeout(() => {
+    elements.forEach(element => {
+      element.classList.remove('start')
+      element.classList.add('item');
+    });
+  }, 100);
+  function goHome() {
+    elements.forEach(element => {
+      element.classList.remove('home-button')
+      element.classList.remove('item')
+      element.classList.add('shrink');
+    });
+    setTimeout(() => {
+      location.href = "https://localhost:1111"; // Redirect after a delay
+    }, 500);
+  }
+  document.getElementById("Form").onsubmit = function () {
+    elements.forEach(element => {
+      element.classList.remove('item')
+      element.classList.add('shrink');
+    });
+    setTimeout(() => {
+      document.getElementById("Form").submit();
+    }, 500);
+  };
+  window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      window.location.reload();
+    }
+  });
+</script>
+</html>

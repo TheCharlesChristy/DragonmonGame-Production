@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html{
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: Lexend;
+      color: #ffffff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    #Form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      font-family: Lexend;
+    }
+    label, input {
+      margin: 10px 0;
+      font-family: Lexend;
+    }
+    button {
+      margin-top: 20px;
+      font-family: Lexend;
+    }
+    .reset-password {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: Lexend;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    .error-message {
+      position: fixed;
+      font-family: Lexend;
+      top: 50%;
+      left: 50%;
+      display: none;
+      color: red;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 24px;
+      z-index: 5;
+    }
+    /* Style the Home button */
+    #home {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: Lexend;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    /* Hover effect for the Home button */
+    .button:hover {
+      transform: scale(1.05) perspective(1px);
+      transition: transform 0.5s ease;
+    }
+    .shrink{
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+    .start{
+      transform: scale(0);
+      transition: all 0s ease;
+    }
+    .item{
+      transform: scale(1);
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <button id="home" onclick = "goHome()">Home</button>
+  <button id="resetpass" class="reset-password">Reset Password</button></a>
+  <form action="{{ url_for('Verify') }}" method="post" id="Form">
+    <label for="username">Username or email:</label>
+    <input type="text" id="username" name="username" placeholder="username">
+    <label for="Password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="password" minlength="1">
+    <input type="hidden" id="Token" name="Token" value="{{ Token }}">
+    <input type="hidden" id="reference" name="reference" value="Login">
+    <button type="submit" id="button">Login</button>
+  </form>
+  {% if message %}
+      <p>{{ message }}</p>
+  {% endif %}
+  <script>
+    const elements = document.querySelectorAll('body *');
+    document.getElementById("resetpass").onclick = function () {
+      elements.forEach(element => {
+        element.classList.remove('button')
+        element.classList.remove('item')
+        element.classList.add('shrink');
+      });
+      setTimeout(() => {
+        location.href = "https://localhost:1111/ForgotPassword"; // Redirect after a delay
+      }, 500);
+    }
+    elements.forEach(element => {
+      element.classList.add('start')
+    });
+    setTimeout(() => {
+      elements.forEach(element => {
+        element.classList.remove('start')
+        element.classList.add('item');
+      });
+    }, 100);
+    document.querySelectorAll('button').forEach(button => {
+      button.classList.add("button")
+    })
+    function goHome() {
+      elements.forEach(element => {
+        element.classList.remove('button')
+        element.classList.remove('item')
+        element.classList.add('shrink');
+      });
+      setTimeout(() => {
+        location.href = "https://localhost:1111"; // Redirect after a delay
+      }, 500);
+    }
+    window.addEventListener("pageshow", function(event) {
+      var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
+      if (historyTraversal) {
+        // Handle page restore.
+        window.location.reload();
+      }
+    });
+    function onsub(event) {
+      event.preventDefault();
+      elements.forEach(element => {
+        console.log(element)
+        element.classList.remove('item')
+        element.classList.remove('button')
+        element.classList.add('shrink');
+      });
+      setTimeout(function () {
+        document.getElementById("Form").submit();
+      }, 750);
+    }
+    document.getElementById("Form").addEventListener("submit", onsub);
+  </script>
+</body>
+</html>

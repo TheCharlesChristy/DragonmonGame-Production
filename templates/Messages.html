@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <title>Submit Button and Text Input Field Example</title>
+    <style>
+      html{
+        color:aliceblue;
+        background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+      }
+      /* Position the submit button at the bottom right of the window */
+      #submit-button {
+        position: absolute;
+        bottom: 4%;
+        right: 3%;
+        font-family: Lexend;
+        width: 13%;
+        height: 10.7%;
+      }
+      body {
+        background-color: black;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        font-family: Lexend;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        justify-content: center;
+      }
+      
+      /* Center the text input field at the bottom of the webpage */
+      #text-input {
+        font-size: large;
+        position: absolute;
+        font-family: Lexend;
+        bottom: 4%; /* Add a small margin from the bottom of the window */
+        left: 20%;
+        max-height: 10%;
+        min-height: 10%;
+        min-width: 60%;
+        max-width: 60%; /* Set the width of the text input field */
+        white-space: normal;
+      }
+      #text-input::-webkit-scrollbar {
+        display: none;
+      }
+      #text-input {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      
+      /* Style the buttons */
+      .username-button {
+        position: relative;
+        top: 3%;
+        font-family: Lexend;
+        display: block;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        text-align: left;
+        cursor: pointer;
+        width: 90%;
+        height: 40px;
+      }
+
+      .message {
+        position: relative;
+        font-family: Lexend;
+        left: 7%;
+        max-width: 70%;
+        white-space: normal;
+      }
+
+      .messages {
+        position: absolute;
+        bottom: 15%;
+        width: 80%;
+        right: 5%;
+        font-family: Lexend;
+        overflow: scroll;
+        height: 70%;
+        z-index: -1;
+      }
+      .messages::-webkit-scrollbar {
+        display: none;
+      }
+      .messages {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+
+      .user-buttons {
+        position: absolute;
+        background-color: black;
+        font-family: Lexend;
+        padding-top: 1%;
+        left: 0%;
+        top: 5%;
+        width: 15%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border-right: 3px solid gray;
+      }
+
+      button:hover{
+        transform: scale(1.05);
+        transition: all 0.5s ease-in-out;
+      }
+      button{
+        border-radius: 10px;
+        border: 0px;
+        box-shadow: black;
+      }
+
+      
+      /* Style the header */
+      header {
+        position: absolute;
+        top: 0%;
+        font-family: Lexend;
+        left: 0%;
+        background-color: #000000;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 5%;
+        border-bottom: 3px solid gray;
+      }
+      
+      /* Style the button in the header */
+      #header-button {
+        background-color: #eee;
+        font-family: Lexend;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        width: 10%;
+        height: 90%;
+      }
+      #header-button:hover{
+        transform: scale(1.05);
+        transition: all 0.5s ease-in-out;
+      }
+      
+      /* Style the paragraph in the header */
+      #header-paragraph {
+        margin: 0;
+        position: absolute;
+        font-family: Lexend;
+        left: 50%;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      #Manage-button {
+        margin: 0;
+        position: absolute;
+        width: 10%;
+        height: 7%;
+        right: 2%;
+        top: 10%;
+        font-family: Lexend;
+        font-size: 80%;
+        text-align: center;
+      }
+
+      .ClearConversation {
+        position: absolute;
+        font-family: Lexend;
+        left: 17%;
+        height: 5%;
+        top: 15%;
+      }
+
+      .CreateGroup {
+        position: absolute;
+        left: 17%;
+        height: 5%;
+        top: 22%;
+        font-family: Lexend;
+      }
+      .membertable {
+        position: absolute;
+        font-family: Lexend;
+        left: 17%;
+        height: 5%;
+        top: 15%;
+      }
+      .Error{
+        position: absolute;
+        left: 17%;
+        height: 5%;
+        bottom: 15%;
+        font-size: x-large;
+        font-family: Lexend;
+        color: red;
+      }
+      .addmember{
+        position: absolute;
+        left: 17%;
+        height: 5%;
+        font-family: Lexend;
+        top: 29%;
+      }
+      .leavebutton{
+        position: absolute;
+        left: 17%;
+        height: 5%;
+        font-family: Lexend;
+        top: 36%;
+      }
+      .shrink{
+        transform: scale(0);
+        transition: transform 0.5s ease;
+      }
+      .start{
+        transform: scale(0);
+        transition: all 0s ease;
+      }
+      .item{
+        transform: scale(1);
+        transition: all 0.5s ease;
+      }
+    </style>
+  </head>
+  <body id="body">
+    <button id="Manage-button" onclick ="ManageConversation()">Manage Conversation</button>
+    <!-- Add the text input field -->
+    <textarea id="text-input" placeholder="Type something..."></textarea>
+    
+    <!-- Add the submit button -->
+    <button id="submit-button" onclick="Sendmessage()">Submit</button>
+    
+    <!-- Add the table of buttons -->
+    <div id="user-buttons" class="user-buttons"></div>
+    
+    <!-- Add the header with a button and a paragraph -->
+    <header>
+      <button id="header-button" onclick ="Goback()">Back</button>
+      <p id="header-paragraph">{{ username }}</p>
+    </header>
+
+    <div id = "messages" class = "messages"></div>
+    
+    <!-- Load the JavaScript code at the end of the body to make sure the DOM is ready -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        username = "{{ username }}"
+        let t = document.getElementById('text-input');
+        let s = document.getElementById('submit-button');
+        let m = document.getElementById('Manage-button');
+        t.style.display = "none";
+        s.style.display = "none";
+        m.style.display = "none";
+        t.classList.add('start');
+        s.classList.add('start');
+        m.classList.add('start');
+        const b = document.getElementById('body');
+        b.classList.add('start');
+        b.style.display = "block";
+        setTimeout(function () {
+          b.classList.remove('start')
+          b.classList.add('item');
+        }, 100);
+        setTimeout(() => {
+          t.style.display = "block";
+          s.style.display = "block";
+          m.style.display = "block";
+        }, 1000);
+    </script>
+    <script type="text/javascript" src="{{url_for('static', filename='Messages.js')}}"></script>
+  </body>
+</html>

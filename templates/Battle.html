@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            color:aliceblue;
+            background-image: url("{{url_for('static', filename='Assets/HomeBackground.jpg')}}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            font-family: Lexend;
+        }
+        body{
+            font-family: Lexend;
+            position: absolute;
+            background-color: black;
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .canvascontainer{
+            width: 80%;
+            height: 80%;
+            display: flex;
+            position: absolute;
+            top: 1%;
+            justify-content: center;
+            overflow-y: scroll;
+            font-family: Lexend;
+            overflow: hidden;
+        }
+        .canvascontainer::-webkit-scrollbar {
+            display: none;
+        }
+        .canvascontainer {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        canvas{
+            width: 95%;
+            height: 95%;
+            border: 5px solid gray;
+            border-radius: 10px;
+        }
+        .buttoncontainer{
+            position: absolute;
+            width: 100%;
+            height: 18%;
+            top: 80%;
+            font-family: Lexend;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            overflow: hidden;
+        }
+        .buttoncontainer::-webkit-scrollbar {
+            display: none;
+        }
+        .buttoncontainer {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        #topleft{
+            width: 45%;
+            height: 45%;
+            font-family: Lexend;
+            border-radius: 10px;
+        }
+        #topright{
+            width: 45%;
+            height: 45%;
+            font-family: Lexend;
+            border-radius: 10px;
+        }
+        #bottomleft{
+            width: 45%;
+            height: 45%;
+            font-family: Lexend;
+            border-radius: 10px;
+        }
+        #bottomright{
+            width: 45%;
+            height: 45%;
+            font-family: Lexend;
+            border-radius: 10px;
+        }
+        table{
+            width: 95%;
+            height: 95%;
+            font-family: Lexend;
+            position: absolute;
+            left: 2.5%;
+        }
+        thead{
+            height: 40px;
+            font-family: Lexend;
+        }
+        tbody{
+            overflow-y: scroll;
+            font-family: Lexend;
+        }
+        #baseimg{
+            display:none;
+            font-family: Lexend;
+        }
+        #waiting {
+            display:none;
+            font-size: large;
+            color: red;
+            font-family: Lexend;
+        }
+        .btn:hover {
+            transform: scale(1.05) perspective(1px);
+            transition: all 0.5s ease-in-out;
+        }
+        .shrink{
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        .start{
+            transform: scale(0);
+            transition: all 0s ease;
+        }
+        .item{
+            transform: scale(1);
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body id ="body">
+    <div id = "canvascontainer" class = "canvascontainer">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class = "buttoncontainer">
+        <button id = "topleft" class="btn"></button>
+        <button id = "topright" class="btn"></button>
+        <button id = "bottomleft" class="btn"></button>
+        <button id = "bottomright" class="btn"></button>
+        <p id = "waiting"> Waiting for Opponents Move </p>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='BattlePage.js')}}"></script>
+    <script type="text/javascript">
+        const username = "{{ username }}"
+        const b = document.getElementById('body');
+        b.classList.add('start');
+        setTimeout(function () {
+            b.classList.remove('start')
+            b.classList.add('item')
+        }, 100);
+    </script>
+    <script type="text/javascript" src="{{url_for('static', filename='Battle.js')}}"></script>
+</body>
+</html>
